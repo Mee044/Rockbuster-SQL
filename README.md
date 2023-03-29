@@ -9,4 +9,4 @@
 
 ### View the [Data Set] (https://drive.google.com/file/d/1g0SqR1XjZlbYzeeIwftFPd3r9Xnvxa9u/view?usp=sharing)
 
-### View the [Project Visualization] (https://public.tableau.com/views/RockbusterDataAnalysisPresentation/RockbusterStealthLLCDataAnalysis?:language=en-US&:display_count=n&:origin=viz_share_link)
+### View the [Project Visualization](https://public.tableau.com/views/RockbusterDataAnalysisPresentation/RockbusterStealthLLCDataAnalysis?:language=en-US&:display_count=n&:origin=viz_share_link)
