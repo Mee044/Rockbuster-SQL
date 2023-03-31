@@ -1,0 +1,83 @@
+Task_3.10 (5 key questions queries)
+— Find highest revenue 
+SELECT A.title, F.name, A.rating, SUM(D.amount) AS total_amount
+FROM film A
+INNER JOIN inventory B ON A.film_id = B.film_id
+INNER JOIN rental C on B.inventory_id = C.inventory_id
+INNER JOIN payment D on C.rental_id = D.rental_id
+INNER JOIN film_category E on A.film_id = E.film_id
+INNER JOIN category F on E.category_id = F.category_id
+GROUP BY A.title, F.name, A.rating
+ORDER BY total_amount DESC
+LIMIT 10;
+
+— Find lowest revenue
+SELECT A.title, F.name, A.rating, SUM(D.amount) AS total_amount
+FROM film A
+INNER JOIN inventory B ON A.film_id = B.film_id
+INNER JOIN rental C on B.inventory_id = C.inventory_id
+INNER JOIN payment D on C.rental_id = D.rental_id
+INNER JOIN film_category E on A.film_id = E.film_id
+INNER JOIN category F on E.category_id = F.category_id
+GROUP BY A.title, F.name, A.rating
+ORDER BY total_amount ASC
+LIMIT 10;
+
+
+--What was the average rental duration for all videos?
+SELECT AVG(A.rental_duration) AS avg_rental_duration, A.rating, C.name
+FROM film A
+INNER JOIN film_category B ON A.film_id = B.film_id
+INNER JOIN category C ON B.category_id = C.category_id
+GROUP BY A.rating, C.name
+ORDER BY avg_rental_duration DESC
+LIMIT 10;
+
+--Which countries are Rockbuster customers based in?
+SELECT country, count(customer_id) AS cnt_cc
+FROM customer A
+INNER JOIN address B ON A.address_id = B.address_id
+INNER JOIN city C ON B.city_id = C.city_id
+INNER JOIN country D on C.country_id = D.country_id
+GROUP BY country
+ORDER BY cnt_cc DESC
+
+
+--Where are customers with a high lifetime value based?
+SELECT 	D.country, 
+		COUNT(DISTINCT A.customer_id) AS cnt_customer,
+		SUM(E.amount) AS top_total_amount	
+FROM customer A
+INNER JOIN address B ON A.address_id = B.address_id
+INNER JOIN city C ON B.city_id = C.city_id
+INNER JOIN country D on C.country_id = D.country_id
+INNER JOIN payment E on A.customer_id = E.customer_id
+GROUP BY country
+ORDER BY cnt_customer DESC
+LIMIT 100;
+
+— Top 10 customers with a high lifetime values
+SELECT 	A.customer_id AS cnt_customer,
+		A.first_name AS first_name, A.last_name AS last_name, 
+		C.city, D.country,
+		SUM(E.amount) AS top_total_amount	
+FROM customer A
+INNER JOIN address B ON A.address_id = B.address_id
+INNER JOIN city C ON B.city_id = C.city_id
+INNER JOIN country D on C.country_id = D.country_id
+INNER JOIN payment E on A.customer_id = E.customer_id
+GROUP BY country, first_name, last_name, city, cnt_customer
+ORDER BY top_total_amount DESC
+LIMIT 10;
+
+-- Do sale figure vary between geographics regions?
+SELECT 	D.country,
+		COUNT(DISTINCT A.customer_id) AS cnt_customer, 
+		SUM(E.amount) AS top_total_amount	
+FROM customer A
+INNER JOIN address B ON A.address_id = B.address_id
+INNER JOIN city C ON B.city_id = C.city_id
+INNER JOIN country D on C.country_id = D.country_id
+INNER JOIN payment E on A.customer_id = E.customer_id
+GROUP BY country
+
