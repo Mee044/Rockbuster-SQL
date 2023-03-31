@@ -1,4 +1,4 @@
-Task_3.10 (5 key questions queries)
+Task_3.10 (5 key business questions queries)
 — Find highest revenue 
 SELECT A.title, F.name, A.rating, SUM(D.amount) AS total_amount
 FROM film A
